@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('latchApp')
+angular.module('lenestApp')
         
 
 ;

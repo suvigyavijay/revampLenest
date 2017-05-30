@@ -2,7 +2,7 @@
 
 var globalVar;
 
-angular.module('latchApp')
+angular.module('lenestApp')
     .controller('MainController', ['$scope', function($scope) {
         
 

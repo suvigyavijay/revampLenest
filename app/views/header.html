@@ -1,24 +1,81 @@
-<div class="navbar-fixed">
-	<nav>
-		<div class="nav-wrapper">
-			<a href="#" class="brand-logo">Lenest</a>
-			<a href="#" data-activates="sideNavbar" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down black-text">
-				<li><a ui-sref="app.sample">Sample</a></li>
-			</ul>
-			<ul class="side-nav" id="sideNavbar">
-				<li>
-					<div class="userView">
-						<div class="background side-nav-bg right-align">
-							<img class="responsive-img " src="images/key.svg">
-						</div>
-						<a href="#!user"><img class="circle" src="images/user.png"></a>
-						<a href="#!name"><span class="white-text name">Guest</span></a>
-						<a href="#!email"><span class="white-text email"></span></a>
-					</div>
-				</li>
-				<li><a ui-sref="app.sample">Sample</a></li>
-			</ul>
-		</div>
-	</nav>
-</div>
+<header class="header-main">
+    <!-- Top Header -->
+    <div class="top-header container-fluid no-padding">
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>We believe every interaction with our patients is an opportunity!</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <ul>
+                        <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" title="Google+"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#" title="Tumblr"><i class="fa fa-tumblr"></i></a></li>
+                    </ul>
+                    <a href="#" title="Book Appointment"><span>+</span>Book Appointment</a>
+                </div>
+            </div>
+        </div>
+        <!-- container /- -->
+    </div>
+    <!-- Top Header /- -->
+    <!-- Logo Block -->
+    <div class="middle-header container-fluid no-padding">
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 logo-block pull-left">
+                    <a href="#" title="Logo"><img src="images/logo.png" alt="Logo" /></a>
+                </div>
+                <div class="col-md-9 text-right pull-right">
+                    <div class="location">
+                        <h3><img src="images/location-ic.png" alt="Location" /> Our Location</h3>
+                        <p>E44 - Web Corner, Melbourne - 18</p>
+                    </div>
+                    <div class="phone">
+                        <h3><img src="images/phone-ic.png" alt="phone" /> (+1)800 433 633</h3>
+                        <p>Call Us Now- 24/7 Customer Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Container -->
+    </div>
+    <!-- Logo Block /- -->
+    <!-- Navigation -->
+    <nav class="navbar ow-navigation">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="departments.html">departments</a></li>
+                        <li><a href="gallery.html">Gallery </a></li>
+                        <li class="dropdown">
+                            <a href="blog.html" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                            <i class="ddl-switch fa fa-angle-down"></i>
+                            <ul class="dropdown-menu">
+                                <li><a href="blog-post.html">Blog Post</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

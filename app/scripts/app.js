@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('latchApp', ['ui.router'])
+angular.module('lenestApp', ['ui.router'])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
         
@@ -31,7 +31,19 @@ angular.module('latchApp', ['ui.router'])
 //                        controller  : 'ContactController'                  
                     }
                 }
+            })
+    
+            // route for form page
+            .state('app.form', {
+                url:'form',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/form.html'
+//                        controller  : 'ContactController'                  
+                    }
+                }
             });
+        
         
         // route to redirect to home in case URL not defined
         $urlRouterProvider.otherwise('/');
