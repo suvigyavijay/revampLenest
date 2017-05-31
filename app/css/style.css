@@ -87,6 +87,11 @@ a {
 	font-family: 'Raleway', sans-serif;
 }
 
+.location p,
+.phone p {
+	text-align: right;
+}
+
 .banner-left span {
 	font-family: 'Philosopher', sans-serif;
 }
