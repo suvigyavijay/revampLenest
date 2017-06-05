@@ -68,9 +68,9 @@
     <!-- Loader /- -->
     <a id="top"></a>
     <!-- Main Container -->
-        <div ui-view="header"></div>
-        <div ui-view="content"></div>
-        <div ui-view="footer"></div>
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
+    <div ui-view="footer"></div>
     <div class="main-container">
     </div>
     <!-- Main Container -->
@@ -103,4 +103,17 @@
     <script src="scripts/controllers.js"></script>
     <script src="scripts/services.js"></script>
     <!-- endbuild -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDJ71aS6rKclmuUpM2poWXt1W8GphA0V5w",
+        authDomain: "lenest-9a46d.firebaseapp.com",
+        databaseURL: "https://lenest-9a46d.firebaseio.com",
+        projectId: "lenest-9a46d",
+        storageBucket: "lenest-9a46d.appspot.com",
+        messagingSenderId: "581899391731"
+    };
+    firebase.initializeApp(config);
+    </script>
 </body>

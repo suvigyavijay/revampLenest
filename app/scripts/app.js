@@ -32,6 +32,17 @@ angular.module('lenestApp', ['ui.router'])
                     }
                 }
             })
+
+            // route for the login page
+            .state('app.login', {
+                url:'login',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/login.html'
+//                        controller  : 'ContactController'                  
+                    }
+                }
+            })
     
             // route for form page
             .state('app.form', {
