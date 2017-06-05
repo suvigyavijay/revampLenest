@@ -32,6 +32,15 @@ angular.module('lenestApp', ['ui.router'])
                     }
                 }
             })
+            .state('app.pregnancy', {
+                url:'pregnancy',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/pregnancy.html'
+//                        controller  : 'ContactController'                  
+                    }
+                }
+            })
 
             // route for the login page
             .state('app.login', {

@@ -1,0 +1,37 @@
+<h2>Prescription</h2>
+
+<div class="row">
+      <div class="row">
+        <div class="input-field col s6 m3">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Patient Name</label>
+        </div>
+      <div class="input-field col s6 m3">
+        <input type="date" class="datepicker">
+          <label for="last_name">Date</label>
+        </div>
+        <div class="input-field col s6 m7"></div>
+
+        <div class="input-field col s6	m6">
+    <select>
+      <option value="" disabled selected>Choose</option>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+      <option value="4">Option 4</option>
+    </select>
+    <label>General prescription</label>
+  </div>
+      </div>
+      
+  </div>
+
+  <script type="text/javascript">
+  	$('.datepicker').pickadate({
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 15 // Creates a dropdown of 15 years to control year
+
+	  });
+  	$('.datepicker').pickadate('picker').set('select', new Date());
+  	$('select').material_select();
+  </script>
