@@ -1,22 +1,30 @@
-<style>
-	form {
- margin: 0 auto; 
- width : 500px;
-	}
-</style>
-
-<div class="row">
-
-<div class="container">
-
-<h2 style="text-align: center;"> Pregnancy Calculator</h2>
-<form class="form-inline">
-  <div class="form-group">
-    <label for="due">Due Date</label>
-    <input type="date" class="form-control" id="ddate" placeholder="Due Date">
-  </div>
-  
-  <button type="submit" class="btn btn-default">Calculate!</button>
-</form>
-<br>
+<div class="row" style="min-height: 400px; margin: 20px 0;" ng-controller="eddController">
+    <h2 class="text-center"> Pregnancy Calculator</h2>
+    <br>
+    <div class="row">
+        <form class="form-inline col-md-12 text-center">
+            <div class="form-group">
+                <label for="due">Due Date &nbsp;</label>
+                <input type="date" class="form-control" id="duedate" required>
+            </div>
+            <button type="button" class="btn btn-default btn-primary" id="eddButton">Calculate!</button>
+            <button type="button" class="btn btn-default" id="eddReset">Reset</button>
+        </form>
+    </div>
+    <br>
+	<div class=" col-md-8 col-md-offset-2">
+		<table id="eddTable" class="table table-bordered">
+        <tr>
+            <th>Week</th>
+            <th>Date </th>
+            <th>Trimester</th>
+            <th>Remarks</th>
+        </tr>
+        </table>
+        <button type="button" class="btn btn-default btn-lg text-center">Print</button>
+        <br>
+	</div>
+	<div class="col-md-12">
+		<br>
+	</div>
 </div>

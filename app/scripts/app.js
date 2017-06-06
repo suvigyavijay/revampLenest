@@ -32,12 +32,14 @@ angular.module('lenestApp', ['ui.router'])
                     }
                 }
             })
+            
             .state('app.pregnancy', {
+                parent: 'app',
                 url:'pregnancy',
                 views: {
                     'content@': {
-                        templateUrl : 'views/pregnancy.html'
-//                        controller  : 'ContactController'                  
+                        templateUrl : 'views/pregnancy.html',
+                        controller  : 'eddController'                  
                     }
                 }
             })
