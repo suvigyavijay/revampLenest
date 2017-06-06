@@ -1,30 +1,47 @@
 <div class="row" style="min-height: 400px; margin: 20px 0;" ng-controller="eddController">
     <h2 class="text-center"> Pregnancy Calculator</h2>
-    <br>
-    <div class="row">
-        <form class="form-inline col-md-12 text-center">
-            <div class="form-group">
-                <label for="due">Due Date &nbsp;</label>
-                <input type="date" class="form-control" id="duedate" required>
-            </div>
-            <button type="button" class="btn btn-default btn-primary" id="eddButton">Calculate!</button>
-            <button type="button" class="btn btn-default" id="eddReset">Reset</button>
-        </form>
-    </div>
-    <br>
-	<div class=" col-md-8 col-md-offset-2">
-		<table id="eddTable" class="table table-bordered">
-        <tr>
-            <th>Week</th>
-            <th>Date </th>
-            <th>Trimester</th>
-            <th>Remarks</th>
-        </tr>
-        </table>
-        <button type="button" class="btn btn-default btn-lg text-center">Print</button>
+    <div id="printableArea">
         <br>
-	</div>
-	<div class="col-md-12">
-		<br>
-	</div>
+        <div class="row">
+            <form class="form-inline col-md-12 text-center">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name">Name &nbsp;</label>
+                        <input type="text" name="name" id="pName" class="form-control" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="form-group">
+                            <label for="due">EDD &nbsp;</label>
+                            <input type="date" class="form-control" name="duedate" id="duedate" required>
+                        </div>
+                        <button type="button" class="btn btn-default btn-primary" id="eddButton">Calculate!</button>
+                        <button type="button" class="btn btn-default" id="eddReset">Reset</button>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="due">LMP &nbsp;</label>
+                        <input type="text" class="form-control" name="lmp" id="lmp">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <div class=" col-md-8 col-md-offset-2">
+            <table id="eddTable" class="table table-bordered table-striped">
+                <tr>
+                    <th>Week</th>
+                    <th>Date </th>
+                    <th>Trimester</th>
+                    <th>Remarks</th>
+                </tr>
+            </table>
+            <button type="button" id="eddPrint" class="btn btn-default btn-lg text-center">Print</button>
+            <br>
+        </div>
+        <div class="col-md-12">
+            <br>
+        </div>
+    </div>
 </div>
