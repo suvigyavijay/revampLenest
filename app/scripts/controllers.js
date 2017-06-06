@@ -21,6 +21,7 @@ angular.module('lenestApp')
 		$('#eddButton').click(function(event) {
 			$scope.generateCalendar($('#duedate').val());
 			$(this).attr("disabled", "disabled");
+			$('#eddPrint').removeAttr("disabled");
 		});
 
 		$('#eddReset').click(function() {
@@ -31,7 +32,8 @@ angular.module('lenestApp')
 		});
 
 		$('#eddPrint').click(function() {
-			printDiv('printableArea');
+			var printContents = "<h2>"+ $('#pName').val() +"</h2> <div class='row'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='table table-bordered table-striped'> <tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table>";
+			printDiv(printContents);
 		})
 
 
@@ -67,13 +69,7 @@ angular.module('lenestApp')
 		        startDate.setDate(startDate.getDate() + 7);
 		    }
 
-		    // console.log(htmloutput);
-
 		    $('#eddTable').html(generateHTMLOutput($rootScope.eddOutput));
-		    // $('.eddRem').keyup(function(event) {
-		    // 	console.log("executing..");
-		    // 	$rootScope.eddOutput[this.attr("id").substring(6)].notes = this.val();
-		    // });
 
 		}
 
@@ -83,6 +79,13 @@ angular.module('lenestApp')
 			var htmloutput = "<tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr>";
 			for (var i=0; i<output.length; i++)
 		    	htmloutput += '<tr> <td>Week '+ output[i].week +'</td> <td>'+ output[i].dateString +'</td> '+ weekTDGen(output[i].week) +' <td> <textarea style="width:100%" rows=1 id="eddRem'+output[i].week+'">'+ output[i].notes +'</textarea></td> </tr>';
+		    return htmloutput;
+		}
+
+		function genPrintTable(output) {
+			var htmloutput = "";
+			for (var i=0; i<output.length; i++)
+		    	htmloutput += '<tr> <td>Week '+ output[i].week +'</td> <td>'+ output[i].dateString +'</td> '+ weekTDGen(output[i].week) +' <td>'+ $('#eddRem'+output[i].week).val() +'</td> </tr>';
 		    return htmloutput;
 		}
 
@@ -126,15 +129,12 @@ angular.module('lenestApp')
 			return "";
 		}
 
-		function printDiv(divName) {
-		     var printContents = document.getElementById(divName).innerHTML;
-		     var originalContents = document.body.innerHTML;
-
-		     document.body.innerHTML = printContents;
-
-		     window.print();
-
-		     document.body.innerHTML = originalContents;
+		function printDiv(printContents) {
+		    // var printContents = document.getElementById(divName).innerHTML;
+		    var originalContents = document.body.innerHTML;
+		    document.body.innerHTML = printContents;
+		    window.print();
+		    document.body.innerHTML = originalContents;
 		}
 
     }])

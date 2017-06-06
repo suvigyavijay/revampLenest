@@ -1,15 +1,18 @@
-    <table class="table table-bordered">
-        <tr>
-            <th>Week</th>
-            <th>Date </th>
-            <th>Trimester</th>
-            <th>Remarks</th>
-        </tr>
-        <tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-        </tr>
-    </table>
-
+<h2>"+ $('#pName').val() +"</h2>
+<div class="row">
+    <div class="col-md-6">
+        EDD: &nbsp; "+ $('#duedate').val() +"
+    </div>
+    <div class="col-md-6">
+        LMP: &nbsp; "+ $('#lmp').val() +"
+    </div>
+</div>
+<table id="eddTable" class="table table-bordered table-striped">
+    <tr>
+        <th>Week</th>
+        <th>Date </th>
+        <th>Trimester</th>
+        <th>Remarks</th>
+    </tr>
+    "+ genPrintTable() +"
+</table>
