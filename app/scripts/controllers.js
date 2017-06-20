@@ -12,6 +12,21 @@ angular.module('lenestApp')
     	
     }])
 
+    .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+    	
+    	$scope.partialDownloadLink = 'http://localhost:8080/download?filename=';
+                    $scope.filename = '';
+
+                    $scope.uploadFile = function() {
+                        $scope.processQueue();
+                    };
+
+                    $scope.reset = function() {
+                        $scope.resetDropzone();
+                    };
+    	
+    }])
+
     .controller('eddController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
 		
 		$('#duedate').val(new Date().toISOString().substring(0,10));

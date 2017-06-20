@@ -45,6 +45,7 @@
     <!-- Custom - Common CSS -->
     <link rel="stylesheet" type="text/css" href="css/plugins.css">
     <link rel="stylesheet" type="text/css" href="css/navigation-menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.0/min/dropzone.min.css" />
     <!--[if IE]>
         <link rel="stylesheet" type="text/css" href="css/all-ie-only.css" />
     <![endif]-->
@@ -97,6 +98,8 @@
     <script src="libraries/isotope/isotope.pkgd.min.js"></script>
     <!-- Library - Magnific Popup - v1.0.0 -->
     <script src="libraries/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- <script type="text/javascript">
+</script> -->
     <!-- build:js scripts/main.js -->
     <script src="scripts/script.js"></script>
     <script src="scripts/app.js"></script>
@@ -104,6 +107,7 @@
     <script src="scripts/services.js"></script>
     <!-- endbuild -->
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.0/min/dropzone.min.js"></script>
     <script>
     // Initialize Firebase
     var config = {
@@ -115,5 +119,7 @@
         messagingSenderId: "581899391731"
     };
     firebase.initializeApp(config);
+    Dropzone.autoDiscover = false;
+
     </script>
 </body>
