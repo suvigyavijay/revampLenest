@@ -84,7 +84,7 @@ angular.module('lenestApp')
 			  holdera.ondragover = function () { $(this).addClass('hover'); return false; };
 			  holdera.ondragend = function () { $(this).addClass(''); return false; };
 			  holdera.ondrop = function (e) {
-			    this.className = '';
+			    $(this).addClass('');
 			    e.preventDefault();
 			    readfiles(e.dataTransfer.files);
 			  }
