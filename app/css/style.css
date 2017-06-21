@@ -844,3 +844,36 @@ _:-ms-input-placeholder, :root .banner-shape { display: none; }
         width: 1200px;
     }
 }
+
+#holder {
+    border: 5px dashed #2098df;
+    min-width: 300px;
+    min-height: 300px;
+    margin: 10px;
+}
+
+#holder.hover {
+    border: 5px dashed #0c0;
+}
+
+#holder img {
+    display: block;
+    margin: 10px;
+    width: 250px;
+    height: 250px
+}
+
+#holder p {
+    margin: 10px;
+    font-size: 14px;
+}
+
+.fail {
+    background: #c00;
+    padding: 2px;
+    color: #fff;
+}
+
+.hidden {
+    display: none !important;
+}

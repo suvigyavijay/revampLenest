@@ -2,7 +2,7 @@
     <h2 class="text-center">Laparoscopy Generator</h2>
     <div id="printableArea">
         <br>
-        <div class="row">
+        <div class="container">
             <form class="form-inline col-md-12 text-center">
                 <div class="row">
                     <div class="form-group">
@@ -12,26 +12,13 @@
                 </div>
             </form>
                 <br><br>
-                <div class="container">
-                    <div class="col-md-4">
-                        <form action="" class="dropzone" id="imgDropzone1"></form>
-                    </div>
-                    <div class="col-md-4">
-                        <form action="" class="dropzone" id="imgDropzone2"></form>
-                    </div>
-                    <div class="col-md-4">
-                        <form action="" class="dropzone" id="imgDropzone3"></form>
-                    </div>
-                    <div class="col-md-4">
-                        <form action="" class="dropzone" id="imgDropzone4"></form>
-                    </div>
-                    <div class="col-md-4">
-                        <form action="" class="dropzone" id="imgDropzone5"></form>
-                    </div>
-                    <div class="col-md-4">
-                        <form action="" class="dropzone" id="imgDropzone6"></form>
-                    </div>
-                </div>
+  <div id="holder">
+  </div> 
+  <p id="upload" class="hidden"><label>Drag & drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
+  <p id="filereader">File API & FileReader API not supported</p>
+  <p id="formdata">XHR2's FormData is not supported</p>
+  
+  <p>Drag an image from your desktop on to the drop zone above to see the browser both render the preview, but also upload automatically to this server.</p>
         </div>
         <br>
         

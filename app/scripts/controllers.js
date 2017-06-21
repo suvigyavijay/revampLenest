@@ -14,18 +14,82 @@ angular.module('lenestApp')
 
     .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
     	
-    	$scope.partialDownloadLink = 'http://localhost:8080/download?filename=';
-                    $scope.filename = '';
+    		var holder = document.getElementById('holder'),
+			    tests = {
+			      filereader: typeof FileReader != 'undefined',
+			      dnd: 'draggable' in document.createElement('span'),
+			      formdata: !!window.FormData,
+			    }, 
+			    support = {
+			      filereader: document.getElementById('filereader'),
+			      formdata: document.getElementById('formdata'),
+			    },
+			    acceptedTypes = {
+			      'image/png': true,
+			      'image/jpeg': true,
+			      'image/gif': true
+			    },
+			    fileupload = document.getElementById('upload');
 
-                    $scope.uploadFile = function() {
-                        $scope.processQueue();
-                    };
+			"filereader formdata".split(' ').forEach(function (api) {
+			  if (tests[api] === false) {
+			    support[api].className = 'fail';
+			  } else {
+			    // FFS. I could have done el.hidden = true, but IE doesn't support
+			    // hidden, so I tried to create a polyfill that would extend the
+			    // Element.prototype, but then IE10 doesn't even give me access
+			    // to the Element object. Brilliant.
+			    support[api].className = 'hidden';
+			  }
+			});
 
-                    $scope.reset = function() {
-                        $scope.resetDropzone();
-                    };
+			function previewfile(file) {
+			  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+			    var reader = new FileReader();
+			    reader.onload = function (event) {
+			      var image = new Image();
+			      image.src = event.target.result;
+			      image.width = 250; // a fake resize
+			      // $('image').css('height') = 250; // a fake resize
+			      holder.appendChild(image);
+			      $('#holder img').each(function(index, el) {
+			      	$(el).css("width", "calc(100% - 20px)");
+			      	$(el).css("height", $(el).css("width"));
+			      });
+			    };
 
-        Dropzone.options.imgDropzone1
+			    reader.readAsDataURL(file);
+			  }  else {
+			    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+			    console.log(file);
+			  }
+			}
+
+			function readfiles(files) {
+			    // debugger;
+			    var formData = tests.formdata ? new FormData() : null;
+			    for (var i = 0; i < files.length; i++) {
+			      if (tests.formdata) formData.append('file', files[i]);
+			      previewfile(files[i]);
+			    }
+
+			}
+
+			if (tests.dnd) { 
+			  holder.ondragover = function () { this.className = 'hover'; return false; };
+			  holder.ondragend = function () { this.className = ''; return false; };
+			  holder.ondrop = function (e) {
+			    this.className = '';
+			    e.preventDefault();
+			    readfiles(e.dataTransfer.files);
+			  }
+			} else {
+			  fileupload.className = 'hidden';
+			  fileupload.querySelector('input').onchange = function () {
+			    readfiles(this.files);
+			  };
+			}
+
 
     }])
 
