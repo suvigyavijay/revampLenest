@@ -21,8 +21,8 @@ angular.module('lenestApp')
 			      formdata: !!window.FormData,
 			    }, 
 			    support = {
-			      filereader: document.getElementById('filereader'),
-			      formdata: document.getElementById('formdata'),
+			      filereader: document.getElementsByClassName('filereader'),
+			      formdata: document.getElementsByClassName('formdata'),
 			    },
 			    acceptedTypes = {
 			      'image/png': true,
@@ -32,15 +32,20 @@ angular.module('lenestApp')
 			    fileupload = document.getElementById('upload');
 
 			"filereader formdata".split(' ').forEach(function (api) {
-			  if (tests[api] === false) {
-			    support[api].className = 'fail';
-			  } else {
+			  	console.log('hey', support[api]);
 			    // FFS. I could have done el.hidden = true, but IE doesn't support
 			    // hidden, so I tried to create a polyfill that would extend the
 			    // Element.prototype, but then IE10 doesn't even give me access
 			    // to the Element object. Brilliant.
-			    support[api].className = 'hidden';
-			  }
+			   //  support[api].each(function(index, el) {
+			  	// console.log('hey2');
+			   //  	$(el).addClass("hidden");
+			   //  });
+			    for (var i=0; i<6; i++) {
+			    	console.log(support[api][i]);
+				    support[api][i].className = 'hidden';
+			    }
+			  
 			});
 
 			function previewfile(file) {
