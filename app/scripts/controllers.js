@@ -41,9 +41,9 @@ angular.module('lenestApp')
 			  	// console.log('hey2');
 			   //  	$(el).addClass("hidden");
 			   //  });
-			    for (var i=0; i<6; i++) {
+			    for (var i=0; i<support[api].length; i++) {
 			    	console.log(support[api][i]);
-				    support[api][i].className = 'hidden';
+				    $(support[api][i]).addClass('hidden');
 			    }
 			  
 			});
@@ -81,19 +81,14 @@ angular.module('lenestApp')
 			}
 
 			if (tests.dnd) { 
-			  holdera.ondragover = function () { this.className = 'hover'; return false; };
-			  holdera.ondragend = function () { this.className = ''; return false; };
+			  holdera.ondragover = function () { $(this).addClass('hover'); return false; };
+			  holdera.ondragend = function () { $(this).addClass(''); return false; };
 			  holdera.ondrop = function (e) {
 			    this.className = '';
 			    e.preventDefault();
 			    readfiles(e.dataTransfer.files);
 			  }
-			} else {
-			  fileupload.className = 'hidden';
-			  fileupload.querySelector('input').onchange = function () {
-			    readfiles(this.files);
-			  };
-			}
+			} 
 
 
     }])
