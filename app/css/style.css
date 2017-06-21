@@ -845,25 +845,25 @@ _:-ms-input-placeholder, :root .banner-shape { display: none; }
     }
 }
 
-#holder {
+.holder {
     border: 5px dashed #2098df;
     min-width: 300px;
     min-height: 300px;
     margin: 10px;
 }
 
-#holder.hover {
+.holder.hover {
     border: 5px dashed #0c0;
 }
 
-#holder img {
+.holder img {
     display: block;
     margin: 10px;
     width: 250px;
     height: 250px
 }
 
-#holder p {
+.holder p {
     margin: 10px;
     font-size: 14px;
 }
