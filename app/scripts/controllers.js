@@ -24,7 +24,9 @@ angular.module('lenestApp')
                     $scope.reset = function() {
                         $scope.resetDropzone();
                     };
-    	
+
+        Dropzone.options.imgDropzone1
+
     }])
 
     .controller('eddController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
