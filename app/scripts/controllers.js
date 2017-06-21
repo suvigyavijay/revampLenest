@@ -14,7 +14,7 @@ angular.module('lenestApp')
 
     .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
     	
-    		var holdera = document.getElementById('holdera'),
+    		var holder = document.getElementsByClassName('holder'),
 			    tests = {
 			      filereader: typeof FileReader != 'undefined',
 			      dnd: 'draggable' in document.createElement('span'),
@@ -32,7 +32,6 @@ angular.module('lenestApp')
 			    fileupload = document.getElementById('upload');
 
 			"filereader formdata".split(' ').forEach(function (api) {
-			  	console.log('hey', support[api]);
 			    // FFS. I could have done el.hidden = true, but IE doesn't support
 			    // hidden, so I tried to create a polyfill that would extend the
 			    // Element.prototype, but then IE10 doesn't even give me access
@@ -42,52 +41,54 @@ angular.module('lenestApp')
 			   //  	$(el).addClass("hidden");
 			   //  });
 			    for (var i=0; i<support[api].length; i++) {
-			    	console.log(support[api][i]);
 				    $(support[api][i]).addClass('hidden');
 			    }
 			  
 			});
 
-			function previewfile(file) {
+			function previewfile(file, holder) {
 			  if (tests.filereader === true && acceptedTypes[file.type] === true) {
 			    var reader = new FileReader();
 			    reader.onload = function (event) {
 			      var image = new Image();
 			      image.src = event.target.result;
-			      image.width = 250; // a fake resize
+			      console.log($(holder).css("height"));
+			      image.width = (parseInt($(holder).css("height").substring(0,3))-30); // a fake resize
 			      // $('image').css('height') = 250; // a fake resize
-			      holdera.appendChild(image);
-			      $('#holdera img').each(function(index, el) {
-			      	$(el).css("width", "calc(100% - 20px)");
+			      holder.appendChild(image);
+			      $(holder).children('img').each(function(index, el) {
+			      	// $(el).css("width", "calc(100% - 20px)");
 			      	$(el).css("height", $(el).css("width"));
 			      });
 			    };
 
 			    reader.readAsDataURL(file);
 			  }  else {
-			    holdera.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+			    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
 			    console.log(file);
 			  }
 			}
 
-			function readfiles(files) {
+			function readfiles(files, holder) {
 			    // debugger;
 			    var formData = tests.formdata ? new FormData() : null;
 			    for (var i = 0; i < files.length; i++) {
 			      if (tests.formdata) formData.append('file', files[i]);
-			      previewfile(files[i]);
+			      previewfile(files[i], holder);
 			    }
 
 			}
 
 			if (tests.dnd) { 
-			  holdera.ondragover = function () { $(this).addClass('hover'); return false; };
-			  holdera.ondragend = function () { $(this).addClass(''); return false; };
-			  holdera.ondrop = function (e) {
+				for (var i=0; i<holder.length; i++) {
+			  holder[i].ondragover = function () { $(this).addClass('hover'); return false; };
+			  holder[i].ondragend = function () { $(this).addClass(''); return false; };
+			  holder[i].ondrop = function (e) {
 			    $(this).addClass('');
 			    e.preventDefault();
-			    readfiles(e.dataTransfer.files);
+			    readfiles(e.dataTransfer.files, this);
 			  }
+			}
 			} 
 
 
