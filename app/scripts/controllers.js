@@ -14,7 +14,7 @@ angular.module('lenestApp')
 
     .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
     	
-    		var holder = document.getElementById('holder'),
+    		var holdera = document.getElementById('holdera'),
 			    tests = {
 			      filereader: typeof FileReader != 'undefined',
 			      dnd: 'draggable' in document.createElement('span'),
@@ -51,8 +51,8 @@ angular.module('lenestApp')
 			      image.src = event.target.result;
 			      image.width = 250; // a fake resize
 			      // $('image').css('height') = 250; // a fake resize
-			      holder.appendChild(image);
-			      $('#holder img').each(function(index, el) {
+			      holdera.appendChild(image);
+			      $('#holdera img').each(function(index, el) {
 			      	$(el).css("width", "calc(100% - 20px)");
 			      	$(el).css("height", $(el).css("width"));
 			      });
@@ -60,7 +60,7 @@ angular.module('lenestApp')
 
 			    reader.readAsDataURL(file);
 			  }  else {
-			    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+			    holdera.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
 			    console.log(file);
 			  }
 			}
@@ -76,9 +76,9 @@ angular.module('lenestApp')
 			}
 
 			if (tests.dnd) { 
-			  holder.ondragover = function () { this.className = 'hover'; return false; };
-			  holder.ondragend = function () { this.className = ''; return false; };
-			  holder.ondrop = function (e) {
+			  holdera.ondragover = function () { this.className = 'hover'; return false; };
+			  holdera.ondragend = function () { this.className = ''; return false; };
+			  holdera.ondrop = function (e) {
 			    this.className = '';
 			    e.preventDefault();
 			    readfiles(e.dataTransfer.files);
