@@ -89,8 +89,43 @@ angular.module('lenestApp')
 			    readfiles(e.dataTransfer.files, this);
 			  }
 			}
+			}
+
+			function printDiv(printContents) {
+			    // var printContents = document.getElementById(divName).innerHTML;
+			    var originalContents = document.body.innerHTML;
+			    document.body.innerHTML = printContents;
+			    window.print();
+			    document.body.innerHTML = originalContents;
 			} 
 
+			function genPrintOutput() {
+				var imgs = $('#lapPics').find('img');
+				var pname = $('#pName').val();
+				var comments = [];
+				$('#lapPics').find('textarea').each(function(index, el) {
+					comments.push(el.value);
+				});
+				var html = '<div class="container"><h2 class="row"> Name: &nbsp;'+ pname +'</h2><br><div class="row"><table style="width:100%">'
+				for (var i = 0; i < comments.length; i++) {
+					// console.log($(img[i]).html());
+					if (i%2==0)
+						html+='<tr> <td class="text-center"><img src="'+ imgs[i].src +'" style="width:28vh; height:28vh"></td><td class="text-center"><img src="'+ imgs[i+1].src +'" style="width:28vh; height:28vh"></td></tr>';
+					else
+						html+='<tr> <td class="text-center">'+ comments[i-1] +'</td> <td class="text-center">'+ comments[i] +'</td> </tr>';
+
+					
+				}
+				html+='</table></div> </div>';
+				// $('body').html(html);
+				// console.log(html);
+				return html;
+			}
+
+			$('#laparoPrint').click(function() {
+				// genPrintOutput();
+				printDiv(genPrintOutput());
+			});
 
     }])
 
