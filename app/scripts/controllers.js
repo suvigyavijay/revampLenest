@@ -149,7 +149,7 @@ angular.module('lenestApp')
 		});
 
 		$('#eddPrint').click(function() {
-			var printContents = "<h2>"+ $('#pName').val() +"</h2> <div class='row'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='table table-bordered table-striped'> <tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table>";
+			var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='table table-bordered table-striped'> <tr> <th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
 			printDiv(printContents);
 		})
 
@@ -164,6 +164,7 @@ angular.module('lenestApp')
 		    var monthDate = new Date(inputDate);
 		    var month = 1;
 		    startDate.setDate(startDate.getDate() - 40 * 7);
+		    monthDate.setDate(monthDate.getDate() - 40 * 7);
 			$rootScope.eddOutput = [];
 
 		    // var weekObject = {
@@ -178,7 +179,7 @@ angular.module('lenestApp')
 		        var temp2 = new Date(startDate);
 		        temp1.setDate(temp1.getDate() + 1);
 		        temp2.setDate(temp2.getDate() + 7);
-		        console.log(monthDate, temp2, (temp2-monthDate));
+		        console.log(month, ((temp2-monthDate)>=2592000000));
 		        if ((temp2-monthDate)>=2592000000){
 		        	month++;
 		        	monthDate.setDate(monthDate.getDate() + 30);
@@ -193,6 +194,7 @@ angular.module('lenestApp')
 		        $rootScope.eddOutput.push(weekObject);
 		        startDate.setDate(startDate.getDate() + 7);
 		    }
+		    console.log($rootScope.eddOutput);
 
 		    $('#eddTable').html(generateHTMLOutput($rootScope.eddOutput));
 
@@ -202,41 +204,52 @@ angular.module('lenestApp')
 
 		function generateHTMLOutput(output) {
 			var htmloutput = "<tr><th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr>";
-			var month_counter = 0;
+			var month_counter = 1;
 			var last_month = 0;
 			var curr_month = 1;
 			for (var i=0; i<output.length; i++) {
-				// var month_html = '';
-				// if (curr_month!=last_month) {
-				// var j=i;
-				// while (output[j].month==curr_month){
-				// 	console.log(month_counter,output[j].month);
-				// 	month_counter++;
-				// 	j++;
-				// }
-				// 	month_html = '<td rowspan="'+ month_counter +'">Month '+ output[i].month +' </td> ';
-				// 	last_month=curr_month;
-				// }
+				var month_html = '';
+				if (curr_month!=last_month) {
+				var j=i;
+				while (output[j].month==curr_month){
+					console.log(month_counter,output[j].month);
+					month_counter++;
+					j++;
+					if (output[j+1]==undefined)
+						break;
+				}
+					month_html = '<td rowspan="'+ month_counter +'" style="vertical-align:middle">Month '+ output[i].month +' </td> ';
+					last_month=curr_month;
+				}
 		    	htmloutput += '<tr>'+ month_html +' <td>Week '+ output[i].week +'</td> <td>'+ output[i].dateString +'</td> '+ weekTDGen(output[i].week) +' <td> <textarea style="width:100%" rows=1 id="eddRem'+output[i].week+'">'+ output[i].notes +'</textarea></td> </tr>';
 				curr_month = output[i].month;
-		    	month_counter=0;
+		    	month_counter=1;
 		    }
 		    return htmloutput;
 		}
 
 		function genPrintTable(output) {
 			var htmloutput = "";
-			var month_counter = 0;
-			var last_month = 1;
+			var month_counter = 1;
+			var last_month = 0;
+			var curr_month = 1;
 			for (var i=0; i<output.length; i++) {
 				var month_html = '';
-				if (output[i].month!=last_month){
-					month_html = '<td rowspan="'+ month_counter +'">Month '+ output[i].month +' </td> ';
-					last_month = output[i].month;
-					month_counter = 0;
+				if (curr_month!=last_month) {
+				var j=i;
+				while (output[j].month==curr_month){
+					console.log(month_counter,output[j].month);
+					month_counter++;
+					j++;
+					if (output[j+1]==undefined)
+						break;
+				}
+					month_html = '<td rowspan="'+ month_counter +'" style="vertical-align:middle">Month '+ output[i].month +' </td> ';
+					last_month=curr_month;
 				}
 		    	htmloutput += '<tr>'+ month_html +'<td>Week '+ output[i].week +'</td> <td>'+ output[i].dateString +'</td> '+ weekTDGen(output[i].week) +' <td>'+ $('#eddRem'+output[i].week).val() +'</td> </tr>';
-				month_counter++;
+				curr_month = output[i].month;
+		    	month_counter=1;
 			}
 		    return htmloutput;
 		}
