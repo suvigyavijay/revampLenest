@@ -135,6 +135,7 @@ angular.module('lenestApp')
 		$('#duedate').val(new Date().toISOString().substring(0,10));
 
 		$scope.functionRun = false;
+		$scope.printFired = 0;
 
 		$('#eddButton').click(function(event) {
 			$scope.generateCalendar($('#duedate').val());
@@ -143,16 +144,19 @@ angular.module('lenestApp')
 		});
 
 		$('#eddReset').click(function() {
-			$('#eddTable').html("<tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr>");
+			$('#eddTable').html("<tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Important Milestones</th> </tr>");
 			$('#eddButton').removeAttr("disabled");
 			$scope.functionRun = false;
 			$rootScope.eddOutput = [];
 		});
 
-		$('#eddPrint').click(function() {
-			var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='table table-bordered table-striped'> <tr> <th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
-			printDiv(printContents);
-		})
+		$scope.eddPrint = function () {
+			if ($scope.printFired==0) {
+				var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='table table-bordered table-striped'> <tr> <th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Important Milestones</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
+				printDiv(printContents);
+			}
+		};
+
 
 
 		$scope.generateCalendar = function (inputDate) {
@@ -180,7 +184,7 @@ angular.module('lenestApp')
 		        var temp2 = new Date(startDate);
 		        temp1.setDate(temp1.getDate() + 1);
 		        temp2.setDate(temp2.getDate() + 7);
-		        console.log(month, ((temp2-monthDate)>=2592000000));
+		        //console.log(month, ((temp2-monthDate)>=2592000000));
 		        if ((temp2-monthDate)>=2592000000){
 		        	month++;
 		        	monthDate.setDate(monthDate.getDate() + 30);
@@ -195,7 +199,7 @@ angular.module('lenestApp')
 		        $rootScope.eddOutput.push(weekObject);
 		        startDate.setDate(startDate.getDate() + 7);
 		    }
-		    console.log($rootScope.eddOutput);
+		    //console.log($rootScope.eddOutput);
 
 		    $('#eddTable').html(generateHTMLOutput($rootScope.eddOutput));
 
@@ -204,7 +208,7 @@ angular.module('lenestApp')
 		}
 
 		function generateHTMLOutput(output) {
-			var htmloutput = "<tr><th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Remarks</th> </tr>";
+			var htmloutput = "<tr><th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Important Milestones</th> </tr>";
 			var month_counter = 1;
 			var last_month = 0;
 			var curr_month = 1;
@@ -213,7 +217,7 @@ angular.module('lenestApp')
 				if (curr_month!=last_month) {
 				var j=i;
 				while (output[j].month==curr_month){
-					console.log(month_counter,output[j].month);
+					//console.log(month_counter,output[j].month);
 					month_counter++;
 					j++;
 					if (output[j+1]==undefined)
@@ -239,7 +243,7 @@ angular.module('lenestApp')
 				if (curr_month!=last_month) {
 				var j=i;
 				while (output[j].month==curr_month){
-					console.log(month_counter,output[j].month);
+					//console.log(month_counter,output[j].month);
 					month_counter++;
 					j++;
 					if (output[j+1]==undefined)
@@ -280,7 +284,7 @@ angular.module('lenestApp')
 				return "Inj. TDap/Inj.Flu Vacc.";
 			if (week==34)
 				return "Growth Scan";
-			if (week==34)
+			if (week==38)
 				return "Doppler Flow (sos)";
 			return "";
 		}
@@ -303,11 +307,14 @@ angular.module('lenestApp')
 		}
 
 		function printDiv(printContents) {
-		    // var printContents = document.getElementById(divName).innerHTML;
+		    if ($scope.printFired==0) {
+		    $scope.printFired = 1;
 		    var originalContents = document.body.innerHTML;
 		    document.body.innerHTML = printContents;
+			    console.log($scope.printFired);
 		    window.print();
 		    window.location.reload(false);
+			}
 		}
 
     }])
