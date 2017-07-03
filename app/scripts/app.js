@@ -74,6 +74,16 @@ angular.module('lenestApp', ['ui.router'])
                         controller  : 'laparoController'                  
                     }
                 }
+            })
+
+            .state('app.baby', {
+                url:'babypics',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/babypics.html',
+                        controller  : 'babyController'                  
+                    }
+                }
             });
 
         // route to redirect to home in case URL not defined

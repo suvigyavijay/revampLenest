@@ -318,5 +318,116 @@ angular.module('lenestApp')
 		}
 
     }])
+
+    .controller('babyController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+		
+			var holder = document.getElementsByClassName('holder'),
+			    tests = {
+			      filereader: typeof FileReader != 'undefined',
+			      dnd: 'draggable' in document.createElement('span'),
+			      formdata: !!window.FormData,
+			    }, 
+			    support = {
+			      filereader: document.getElementsByClassName('filereader'),
+			      formdata: document.getElementsByClassName('formdata'),
+			    },
+			    acceptedTypes = {
+			      'image/png': true,
+			      'image/jpeg': true,
+			      'image/gif': true
+			    },
+			    fileupload = document.getElementById('upload');
+
+			"filereader formdata".split(' ').forEach(function (api) {
+			    // FFS. I could have done el.hidden = true, but IE doesn't support
+			    // hidden, so I tried to create a polyfill that would extend the
+			    // Element.prototype, but then IE10 doesn't even give me access
+			    // to the Element object. Brilliant.
+			   //  support[api].each(function(index, el) {
+			  	// console.log('hey2');
+			   //  	$(el).addClass("hidden");
+			   //  });
+			    for (var i=0; i<support[api].length; i++) {
+				    $(support[api][i]).addClass('hidden');
+			    }
+			  
+			});
+
+			function previewfile(file, holder) {
+			  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+			    var reader = new FileReader();
+			    reader.onload = function (event) {
+			      var image = new Image();
+			      image.src = event.target.result;
+			      console.log($(holder).css("height"));
+			      image.width = (parseInt($(holder).css("height").substring(0,3))-30); // a fake resize
+			      // $('image').css('height') = 250; // a fake resize
+			      holder.appendChild(image);
+			      $(holder).children('img').each(function(index, el) {
+			      	// $(el).css("width", "calc(100% - 20px)");
+			      	$(el).css("height", $(el).css("width"));
+			      });
+			    };
+
+			    reader.readAsDataURL(file);
+			  }  else {
+			    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+			    console.log(file);
+			  }
+			}
+
+			function readfiles(files, holder) {
+			    // debugger;
+			    var formData = tests.formdata ? new FormData() : null;
+			    for (var i = 0; i < files.length; i++) {
+			      if (tests.formdata) formData.append('file', files[i]);
+			      previewfile(files[i], holder);
+			    }
+
+			}
+
+			if (tests.dnd) { 
+				for (var i=0; i<holder.length; i++) {
+			  holder[i].ondragover = function () { $(this).addClass('hover'); return false; };
+			  holder[i].ondragend = function () { $(this).addClass(''); return false; };
+			  holder[i].ondrop = function (e) {
+			    $(this).addClass('');
+			    e.preventDefault();
+			    readfiles(e.dataTransfer.files, this);
+			  }
+			}
+			}
+
+			function printDiv(printContents) {
+			    // var printContents = document.getElementById(divName).innerHTML;
+			    var originalContents = document.body.innerHTML;
+			    document.body.innerHTML = printContents;
+			    window.print();
+			    // document.body.innerHTML = originalContents;
+			    window.location.reload(false);
+			} 
+
+			function genPrintOutput() {
+				var imgs = $('#babyPics').find('img');
+				console.log(imgs[0].src);
+				var pname = $('#pName').val();
+				var comments = [];
+					comments.push($('#commentBox1').value);
+				
+				var html = '<div class="container"><h2 class="row"> Name: &nbsp;'+ pname +'</h2><br><div class="row"><table style="width:100%">';
+						html+='<tr> <td class="text-center"><img src="'+ imgs[0].src +'" style="width:28vh; height:28vh"></td></tr>';
+						html+='<tr> <td class="text-center">'+ comments[0] +'</td> </tr>';
+				html+='</table></div> </div>';
+				// $('body').html(html);
+				// console.log(html);
+				return html;
+			}
+
+			$('#babyPrint').click(function() {
+				// genPrintOutput();
+				printDiv(genPrintOutput());
+			});		
+
+	}])
         
 ;
