@@ -21,6 +21,21 @@ angular.module('lenestApp', ['ui.router'])
                 }
 
             })
+
+            .state('blank', {
+                url:'/blank',
+                views: {
+                    'header': {
+                        template:''
+                    },
+                    'content': {
+                        templateUrl: 'views/blank.html'
+                    },
+                    'footer': {
+                        template:''
+                    }
+                }
+            })
     
             // route for the test page
             .state('app.sample', {
