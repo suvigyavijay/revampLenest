@@ -86,123 +86,123 @@ angular.module('lenestApp')
 
     }])
 
-   //  .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+    .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
     	
-   //  		var holder = document.getElementsByClassName('holder'),
-			//     tests = {
-			//       filereader: typeof FileReader != 'undefined',
-			//       dnd: 'draggable' in document.createElement('span'),
-			//       formdata: !!window.FormData,
-			//     }, 
-			//     support = {
-			//       filereader: document.getElementsByClassName('filereader'),
-			//       formdata: document.getElementsByClassName('formdata'),
-			//     },
-			//     acceptedTypes = {
-			//       'image/png': true,
-			//       'image/jpeg': true,
-			//       'image/gif': true
-			//     },
-			//     fileupload = document.getElementById('upload');
+    		var holder = document.getElementsByClassName('holder'),
+			    tests = {
+			      filereader: typeof FileReader != 'undefined',
+			      dnd: 'draggable' in document.createElement('span'),
+			      formdata: !!window.FormData,
+			    }, 
+			    support = {
+			      filereader: document.getElementsByClassName('filereader'),
+			      formdata: document.getElementsByClassName('formdata'),
+			    },
+			    acceptedTypes = {
+			      'image/png': true,
+			      'image/jpeg': true,
+			      'image/gif': true
+			    },
+			    fileupload = document.getElementById('upload');
 
-			// "filereader formdata".split(' ').forEach(function (api) {
-			//     // FFS. I could have done el.hidden = true, but IE doesn't support
-			//     // hidden, so I tried to create a polyfill that would extend the
-			//     // Element.prototype, but then IE10 doesn't even give me access
-			//     // to the Element object. Brilliant.
-			//    //  support[api].each(function(index, el) {
-			//   	// console.log('hey2');
-			//    //  	$(el).addClass("hidden");
-			//    //  });
-			//     for (var i=0; i<support[api].length; i++) {
-			// 	    $(support[api][i]).addClass('hidden');
-			//     }
+			"filereader formdata".split(' ').forEach(function (api) {
+			    // FFS. I could have done el.hidden = true, but IE doesn't support
+			    // hidden, so I tried to create a polyfill that would extend the
+			    // Element.prototype, but then IE10 doesn't even give me access
+			    // to the Element object. Brilliant.
+			   //  support[api].each(function(index, el) {
+			  	// console.log('hey2');
+			   //  	$(el).addClass("hidden");
+			   //  });
+			    for (var i=0; i<support[api].length; i++) {
+				    $(support[api][i]).addClass('hidden');
+			    }
 			  
-			// });
+			});
 
-			// function previewfile(file, holder) {
-			//   if (tests.filereader === true && acceptedTypes[file.type] === true) {
-			//     var reader = new FileReader();
-			//     reader.onload = function (event) {
-			//       var image = new Image();
-			//       image.src = event.target.result;
-			//       console.log($(holder).css("height"));
-			//       image.width = (parseInt($(holder).css("height").substring(0,3))-30); // a fake resize
-			//       // $('image').css('height') = 250; // a fake resize
-			//       holder.appendChild(image);
-			//       $(holder).children('img').each(function(index, el) {
-			//       	// $(el).css("width", "calc(100% - 20px)");
-			//       	$(el).css("height", $(el).css("width"));
-			//       });
-			//     };
+			function previewfile(file, holder) {
+			  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+			    var reader = new FileReader();
+			    reader.onload = function (event) {
+			      var image = new Image();
+			      image.src = event.target.result;
+			      console.log($(holder).css("height"));
+			      image.width = (parseInt($(holder).css("height").substring(0,3))-30); // a fake resize
+			      // $('image').css('height') = 250; // a fake resize
+			      holder.appendChild(image);
+			      $(holder).children('img').each(function(index, el) {
+			      	// $(el).css("width", "calc(100% - 20px)");
+			      	$(el).css("height", $(el).css("width"));
+			      });
+			    };
 
-			//     reader.readAsDataURL(file);
-			//   }  else {
-			//     holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
-			//     console.log(file);
-			//   }
-			// }
+			    reader.readAsDataURL(file);
+			  }  else {
+			    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+			    console.log(file);
+			  }
+			}
 
-			// function readfiles(files, holder) {
-			//     // debugger;
-			//     var formData = tests.formdata ? new FormData() : null;
-			//     for (var i = 0; i < files.length; i++) {
-			//       if (tests.formdata) formData.append('file', files[i]);
-			//       previewfile(files[i], holder);
-			//     }
+			function readfiles(files, holder) {
+			    // debugger;
+			    var formData = tests.formdata ? new FormData() : null;
+			    for (var i = 0; i < files.length; i++) {
+			      if (tests.formdata) formData.append('file', files[i]);
+			      previewfile(files[i], holder);
+			    }
 
-			// }
+			}
 
-			// if (tests.dnd) { 
-			// 	for (var i=0; i<holder.length; i++) {
-			//   holder[i].ondragover = function () { $(this).addClass('hover'); return false; };
-			//   holder[i].ondragend = function () { $(this).addClass(''); return false; };
-			//   holder[i].ondrop = function (e) {
-			//     $(this).addClass('');
-			//     e.preventDefault();
-			//     readfiles(e.dataTransfer.files, this);
-			//   }
-			// }
-			// }
+			if (tests.dnd) { 
+				for (var i=0; i<holder.length; i++) {
+			  holder[i].ondragover = function () { $(this).addClass('hover'); return false; };
+			  holder[i].ondragend = function () { $(this).addClass(''); return false; };
+			  holder[i].ondrop = function (e) {
+			    $(this).addClass('');
+			    e.preventDefault();
+			    readfiles(e.dataTransfer.files, this);
+			  }
+			}
+			}
 
-			// function printDiv(printContents) {
-			//     // var printContents = document.getElementById(divName).innerHTML;
-			//     var originalContents = document.body.innerHTML;
-			//     document.body.innerHTML = printContents;
-			//     window.print();
-			//     // document.body.innerHTML = originalContents;
-			//     window.location.reload(false);
-			// } 
+			function printDiv(printContents) {
+			    // var printContents = document.getElementById(divName).innerHTML;
+			    var originalContents = document.body.innerHTML;
+			    document.body.innerHTML = printContents;
+			    window.print();
+			    // document.body.innerHTML = originalContents;
+			    window.location.reload(false);
+			} 
 
-			// function genPrintOutput() {
-			// 	var imgs = $('#lapPics').find('img');
-			// 	var pname = $('#pName').val();
-			// 	var comments = [];
-			// 	$('#lapPics').find('textarea').each(function(index, el) {
-			// 		comments.push(el.value);
-			// 	});
-			// 	var html = '<div class="container"><h2 class="row"> Name: &nbsp;'+ pname +'</h2><br><div class="row"><table style="width:100%">'
-			// 	for (var i = 0; i < comments.length; i++) {
-			// 		// console.log($(img[i]).html());
-			// 		if (i%2==0)
-			// 			html+='<tr> <td class="text-center"><img src="'+ imgs[i].src +'" style="width:28vh; height:28vh"></td><td class="text-center"><img src="'+ imgs[i+1].src +'" style="width:28vh; height:28vh"></td></tr>';
-			// 		else
-			// 			html+='<tr> <td class="text-center">'+ comments[i-1] +'</td> <td class="text-center">'+ comments[i] +'</td> </tr>';
+			function genPrintOutput() {
+				var imgs = $('#lapPics').find('img');
+				var pname = $('#pName').val();
+				var comments = [];
+				$('#lapPics').find('textarea').each(function(index, el) {
+					comments.push(el.value);
+				});
+				var html = '<div class="container"><h2 class="row"> Name: &nbsp;'+ pname +'</h2><br><div class="row"><table style="width:100%">'
+				for (var i = 0; i < comments.length; i++) {
+					// console.log($(img[i]).html());
+					if (i%2==0)
+						html+='<tr> <td class="text-center"><img src="'+ imgs[i].src +'" style="width:28vh; height:28vh"></td><td class="text-center"><img src="'+ imgs[i+1].src +'" style="width:28vh; height:28vh"></td></tr>';
+					else
+						html+='<tr> <td class="text-center">'+ comments[i-1] +'</td> <td class="text-center">'+ comments[i] +'</td> </tr>';
 
 					
-			// 	}
-			// 	html+='</table></div> </div>';
-			// 	// $('body').html(html);
-			// 	// console.log(html);
-			// 	return html;
-			// }
+				}
+				html+='</table></div> </div>';
+				// $('body').html(html);
+				// console.log(html);
+				return html;
+			}
 
-			// $('#laparoPrint').click(function() {
-			// 	// genPrintOutput();
-			// 	printDiv(genPrintOutput());
-			// });
+			$('#laparoPrint').click(function() {
+				// genPrintOutput();
+				printDiv(genPrintOutput());
+			});
 
-   //  }])
+    }])
 
     .controller('eddController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
 		
@@ -393,114 +393,114 @@ angular.module('lenestApp')
 
     }])
 
-    .controller('babyController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+ //    .controller('babyController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
 		
-			var holder = document.getElementsByClassName('holder'),
-			    tests = {
-			      filereader: typeof FileReader != 'undefined',
-			      dnd: 'draggable' in document.createElement('span'),
-			      formdata: !!window.FormData,
-			    }, 
-			    support = {
-			      filereader: document.getElementsByClassName('filereader'),
-			      formdata: document.getElementsByClassName('formdata'),
-			    },
-			    acceptedTypes = {
-			      'image/png': true,
-			      'image/jpeg': true,
-			      'image/gif': true
-			    },
-			    fileupload = document.getElementById('upload');
+	// 		var holder = document.getElementsByClassName('holder'),
+	// 		    tests = {
+	// 		      filereader: typeof FileReader != 'undefined',
+	// 		      dnd: 'draggable' in document.createElement('span'),
+	// 		      formdata: !!window.FormData,
+	// 		    }, 
+	// 		    support = {
+	// 		      filereader: document.getElementsByClassName('filereader'),
+	// 		      formdata: document.getElementsByClassName('formdata'),
+	// 		    },
+	// 		    acceptedTypes = {
+	// 		      'image/png': true,
+	// 		      'image/jpeg': true,
+	// 		      'image/gif': true
+	// 		    },
+	// 		    fileupload = document.getElementById('upload');
 
-			"filereader formdata".split(' ').forEach(function (api) {
-			    // FFS. I could have done el.hidden = true, but IE doesn't support
-			    // hidden, so I tried to create a polyfill that would extend the
-			    // Element.prototype, but then IE10 doesn't even give me access
-			    // to the Element object. Brilliant.
-			   //  support[api].each(function(index, el) {
-			  	// console.log('hey2');
-			   //  	$(el).addClass("hidden");
-			   //  });
-			    for (var i=0; i<support[api].length; i++) {
-				    $(support[api][i]).addClass('hidden');
-			    }
+	// 		"filereader formdata".split(' ').forEach(function (api) {
+	// 		    // FFS. I could have done el.hidden = true, but IE doesn't support
+	// 		    // hidden, so I tried to create a polyfill that would extend the
+	// 		    // Element.prototype, but then IE10 doesn't even give me access
+	// 		    // to the Element object. Brilliant.
+	// 		   //  support[api].each(function(index, el) {
+	// 		  	// console.log('hey2');
+	// 		   //  	$(el).addClass("hidden");
+	// 		   //  });
+	// 		    for (var i=0; i<support[api].length; i++) {
+	// 			    $(support[api][i]).addClass('hidden');
+	// 		    }
 			  
-			});
+	// 		});
 
-			function previewfile(file, holder) {
-			  if (tests.filereader === true && acceptedTypes[file.type] === true) {
-			    var reader = new FileReader();
-			    reader.onload = function (event) {
-			      var image = new Image();
-			      image.src = event.target.result;
-			      console.log('hello', $(holder).css("height"));
-			      image.width = (parseInt($(holder).css("width").substring(0,3))-30); // a fake resize
-			      // $('image').css('height') = 250; // a fake resize
-			      holder.appendChild(image);
-			      $(holder).children('img').each(function(index, el) {
-			      	$(el).css("width", "100%");
-			      	$(el).css("height", "100%");
-			      });
-			    };
+	// 		function previewfile(file, holder) {
+	// 		  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+	// 		    var reader = new FileReader();
+	// 		    reader.onload = function (event) {
+	// 		      var image = new Image();
+	// 		      image.src = event.target.result;
+	// 		      console.log('hello', $(holder).css("height"));
+	// 		      image.width = (parseInt($(holder).css("width").substring(0,3))-30); // a fake resize
+	// 		      // $('image').css('height') = 250; // a fake resize
+	// 		      holder.appendChild(image);
+	// 		      $(holder).children('img').each(function(index, el) {
+	// 		      	$(el).css("width", "100%");
+	// 		      	$(el).css("height", "100%");
+	// 		      });
+	// 		    };
 
-			    reader.readAsDataURL(file);
-			  }  else {
-			    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
-			    console.log(file);
-			  }
-			}
+	// 		    reader.readAsDataURL(file);
+	// 		  }  else {
+	// 		    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+	// 		    console.log(file);
+	// 		  }
+	// 		}
 
-			function readfiles(files, holder) {
-			    // debugger;
-			    var formData = tests.formdata ? new FormData() : null;
-			    for (var i = 0; i < files.length; i++) {
-			      if (tests.formdata) formData.append('file', files[i]);
-			      previewfile(files[i], holder);
-			    }
+	// 		function readfiles(files, holder) {
+	// 		    // debugger;
+	// 		    var formData = tests.formdata ? new FormData() : null;
+	// 		    for (var i = 0; i < files.length; i++) {
+	// 		      if (tests.formdata) formData.append('file', files[i]);
+	// 		      previewfile(files[i], holder);
+	// 		    }
 
-			}
+	// 		}
 
-			if (tests.dnd) { 
-				for (var i=0; i<holder.length; i++) {
-			  holder[i].ondragover = function () { $(this).addClass('hover'); return false; };
-			  holder[i].ondragend = function () { $(this).addClass(''); return false; };
-			  holder[i].ondrop = function (e) {
-			    $(this).addClass('');
-			    e.preventDefault();
-			    readfiles(e.dataTransfer.files, this);
-			  }
-			}
-			}
+	// 		if (tests.dnd) { 
+	// 			for (var i=0; i<holder.length; i++) {
+	// 		  holder[i].ondragover = function () { $(this).addClass('hover'); return false; };
+	// 		  holder[i].ondragend = function () { $(this).addClass(''); return false; };
+	// 		  holder[i].ondrop = function (e) {
+	// 		    $(this).addClass('');
+	// 		    e.preventDefault();
+	// 		    readfiles(e.dataTransfer.files, this);
+	// 		  }
+	// 		}
+	// 		}
 
-			function printDiv(printContents) {
-			    // var printContents = document.getElementById(divName).innerHTML;
-			    var originalContents = document.body.innerHTML;
-			    document.body.innerHTML = printContents;
-			    setTimeout(function() {
-			    	window.print();
-			    	window.location.reload(false);
-			    }, 1000);
-			    // document.body.innerHTML = originalContents;
-			} 
+	// 		function printDiv(printContents) {
+	// 		    // var printContents = document.getElementById(divName).innerHTML;
+	// 		    var originalContents = document.body.innerHTML;
+	// 		    document.body.innerHTML = printContents;
+	// 		    setTimeout(function() {
+	// 		    	window.print();
+	// 		    	window.location.reload(false);
+	// 		    }, 1000);
+	// 		    // document.body.innerHTML = originalContents;
+	// 		} 
 
-			function genPrintOutput() {
-				var imgs = $('#babyPics').find('img');
-				console.log(imgs[0].src);
-				var pname = $('#pName').val();
-				var comments = [];
-					comments.push($('#commentBox').val());
+	// 		function genPrintOutput() {
+	// 			var imgs = $('#babyPics').find('img');
+	// 			console.log(imgs[0].src);
+	// 			var pname = $('#pName').val();
+	// 			var comments = [];
+	// 				comments.push($('#commentBox').val());
 				
-				var html = '<style> .babypic {height: 100vh; background-size: 100% 100%; background-repeat: no-repeat; width: 100vw; position: absolute; z-index: 1; } .babyframe {height: 100vh; background-size: 100% 100%; width: 100vw; position: absolute; z-index: 2; } .wishes {width: 100vw; z-index: 3; position: absolute; padding: 0 2em; text-align: center; bottom: 3vh; font-family: "Roboto", sans-serif; font-size: 5em; font-weight: 900; -webkit-text-stroke: 2px white; } .babyname {z-index: 3; position: absolute; left: 8vw; top: 3vh; font-family: cursive; font-size: 5em; font-weight: 900; -webkit-text-stroke: 2px white; } </style> <div class="fluid-container"> <img class="babypic" src="'+ imgs[1].src +'"> <img class="babyframe" src="'+ imgs[0].src +'"> <div class="babyname">Hey '+ pname +'</div> <div class="wishes">'+ comments[0] +'</div> </div>';
-				// $('body').html(html);
-				// console.log(html);
-				return html;
-			}
+	// 			var html = '<style> .babypic {height: 100vh; background-size: 100% 100%; background-repeat: no-repeat; width: 100vw; position: absolute; z-index: 1; } .babyframe {height: 100vh; background-size: 100% 100%; width: 100vw; position: absolute; z-index: 2; } .wishes {width: 100vw; z-index: 3; position: absolute; padding: 0 2em; text-align: center; bottom: 3vh; font-family: "Roboto", sans-serif; font-size: 5em; font-weight: 900; -webkit-text-stroke: 2px white; } .babyname {z-index: 3; position: absolute; left: 8vw; top: 3vh; font-family: cursive; font-size: 5em; font-weight: 900; -webkit-text-stroke: 2px white; } </style> <div class="fluid-container"> <img class="babypic" src="'+ imgs[1].src +'"> <img class="babyframe" src="'+ imgs[0].src +'"> <div class="babyname">Hey '+ pname +'</div> <div class="wishes">'+ comments[0] +'</div> </div>';
+	// 			// $('body').html(html);
+	// 			// console.log(html);
+	// 			return html;
+	// 		}
 
-			$('#babyPrint').click(function() {
-				// genPrintOutput();
-				printDiv(genPrintOutput());
-			});		
+	// 		$('#babyPrint').click(function() {
+	// 			// genPrintOutput();
+	// 			printDiv(genPrintOutput());
+	// 		});		
 
-	}])
+	// }])
         
 ;
