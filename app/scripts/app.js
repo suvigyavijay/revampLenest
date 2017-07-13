@@ -64,8 +64,18 @@ angular.module('lenestApp', ['ui.router'])
                 url:'login',
                 views: {
                     'content@': {
-                        templateUrl : 'views/login.html'
-//                        controller  : 'ContactController'                  
+                        templateUrl : 'views/login.html',
+                        controller  : 'chatController'                  
+                    }
+                }
+            })
+
+            .state('app.chat', {
+                url:'chat',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/chat.html',
+                        controller  : 'chatController'                  
                     }
                 }
             })

@@ -4,12 +4,86 @@ var globalVar;
 
 angular.module('lenestApp')
     .controller('MainController', ['$scope', function($scope) {
-        
+        $rootScope.currentUser = null;
 
     }])
 
-    .controller('sampleController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+    .controller('chatController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+
     	
+    	$('#btn-login').click(function() {
+    	var email = $('#login-username').val();
+    	var password = $('#login-password').val();
+    		firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
+    			// console.log(user);
+    			$rootScope.currentUser = user.email;
+    			$state.go('app.chat');
+    		}).catch(function(error) {
+		    	console.log(error.message);
+		    	var errorCode = error.code;
+		    	var errorMessage = error.message;
+			});
+
+			console.log('login successful');
+    	})
+
+    	$('#logoutButton').click(function(event) {
+    		firebase.auth().signOut().then(function() {
+			  $state.go('app.login');
+			}).catch(function(error) {
+			  console.log(error.message);
+			});
+    	});
+
+    	var $username = $("#username");
+  var $newMessage = $("#newMessage");
+  var $messageList = $("#messageList");
+  var $loginButton = $("#loginButton");
+  var $loggedInText = $("#loggedInText");
+  var $logoutButton = $("#logoutButton");
+  
+   var messagesRef = firebase.database().ref('/').child("messages");
+
+
+  // Add a new message to the message list
+  function addMessage(username, text) {
+    var el = $("<li class='list-group-item'><b>" + username + ":</b> " + text + "</li>")
+    $messageList.append(el);
+  }
+
+  // Loop through the last ten messages stored in Firebase
+  messagesRef.limitToLast(20).on("child_added", function(snapshot) {
+    var message = snapshot.val();
+
+    // Escape unsafe characters
+    var username = message.username.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
+    var text = message.text.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
+
+    addMessage(username, text);
+  });
+
+  // Listen for key presses on the new message input
+  $newMessage.keypress(function (e) {
+    // Get field values
+    var username = $username.val();
+    var text = $newMessage.val().trim();
+
+    // Save message to Firebase when enter key is pressed
+    if (e.keyCode == 13 && text.length) {
+      messagesRef.push({
+        username: $rootScope.currentUser,
+        text: text
+      }, function(error) {
+        if (error) {
+          console.log("Error adding new message:", error);
+        }
+      });
+
+      // Reset new message input
+      $newMessage.val("");
+    }
+  });
+
     }])
 
    //  .controller('laparoController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
