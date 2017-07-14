@@ -875,3 +875,11 @@ _:-ms-input-placeholder, :root .banner-shape { display: none; }
 .hidden {
     display: none !important;
 }
+
+.custom-table > tbody > tr > td, th {
+    border: 1px solid #222;
+}
+
+.custom-table > tbody > tr > th {
+    border: 1px solid #222;
+}

@@ -218,7 +218,7 @@ angular.module('lenestApp')
 		});
 
 		$('#eddReset').click(function() {
-			$('#eddTable').html("<tr> <th>Week</th> <th>Date </th> <th style='width:100px'>Trimester</th> <th>Important Milestones</th> </tr>");
+			$('#eddTable').html("<tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Important Milestones</th> </tr>");
 			$('#eddButton').removeAttr("disabled");
 			$scope.functionRun = false;
 			$rootScope.eddOutput = [];
@@ -226,7 +226,7 @@ angular.module('lenestApp')
 
 		$scope.eddPrint = function () {
 			if ($scope.printFired==0) {
-				var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='table table-bordered table-striped'> <tr> <th>Month</th> <th>Week</th> <th>Date </th> <th  style='width:100px'>Trimester</th> <th>Important Milestones</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
+				var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row' style='font-size: 1.2em;'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='custom-table table table-bordered table-striped'> <tr> <th style='width:10%'>Month</th> <th style='width:10%''>Week</th> <th style='width:20%'>Date </th> <th  style='width:5%'>Trimester</th> <th style='width:50%'>Important Milestones</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
 				printDiv(printContents);
 			}
 		};
@@ -365,11 +365,11 @@ angular.module('lenestApp')
 
 		function weekTDGen(week) {
 			if (week==1)
-				return "<td rowspan=13 style='vertical-align:middle'>First Trimester</td>";
+				return "<td rowspan=13 style='vertical-align:middle; text-align:center'>I</td>";
 			if (week==14)
-				return "<td rowspan=14 style='vertical-align:middle'>Second Trimester</td>";
+				return "<td rowspan=14 style='vertical-align:middle; text-align:center'>II</td>";
 			if (week==28)
-				return "<td rowspan=15 style='vertical-align:middle'>Third Trimester</td>";
+				return "<td rowspan=15 style='vertical-align:middle; text-align:center'>III</td>";
 			return "";
 		}
 
@@ -490,7 +490,7 @@ angular.module('lenestApp')
 				var comments = [];
 					comments.push($('#commentBox').val());
 				
-				var html = '<style> .babypic {height: 100vh; background-size: 100% 100%; background-repeat: no-repeat; width: 100vw; position: absolute; z-index: 1; } .babyframe {height: 100vh; background-size: 100% 100%; width: 100vw; position: absolute; z-index: 2; } .wishes {width: 100vw; z-index: 3; position: absolute; padding: 0 2em; text-align: center; bottom: 3vh; font-family: "Roboto", sans-serif; font-size: 2.5em; -webkit-text-stroke: 2px white; } .babyname {z-index: 3; position: absolute; left: 8vw; top: 3vh; font-family: cursive; font-size: 5em; font-weight: 900; -webkit-text-stroke: 2px white; } </style> <div class="fluid-container"> <img class="babypic" src="'+ imgs[1].src +'"> <img class="babyframe" src="'+ imgs[0].src +'"> <div class="babyname">Hey '+ pname +'</div> <div class="wishes">'+ comments[0] +'</div> </div>';
+				var html = '<style> .babypic {height: 100vh; background-size: 100% 100%; background-repeat: no-repeat; width: 100vw; position: absolute; z-index: 1; } .babyframe {height: 100vh; background-size: 100% 100%; width: 100vw; position: absolute; z-index: 2; } .wishes {width: 100vw; z-index: 3; position: absolute; padding: 0 2em; text-align: center; bottom: 3vh; font-family: "Roboto", sans-serif; font-size: 2.5em; -webkit-text-stroke: 2px white; } .babyname {z-index: 3; position: absolute; left: 8vw; top: 3vh; font-family: cursive; font-size: 5em; font-weight: 900; -webkit-text-stroke: 2px white; } </style> <div class="fluid-container"> <img class="babypic" src="'+ imgs[1].src +'"> <img class="babyframe" src="'+ imgs[0].src +'"> <div class="babyname"> '+ pname +'</div> <div class="wishes">'+ comments[0] +'</div> </div>';
 				// $('body').html(html);
 				// console.log(html);
 				return html;
