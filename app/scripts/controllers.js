@@ -282,7 +282,7 @@ angular.module('lenestApp')
 		}
 
 		function generateHTMLOutput(output) {
-			var htmloutput = "<tr><th>Month</th> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Important Milestones</th> </tr>";
+			var htmloutput = "<tr><th>Month</th> <th>Week</th> <th>Date </th> <th>Pregnancy Care</th> <th>Important Milestones</th> </tr>";
 			var month_counter = 1;
 			var last_month = 0;
 			var curr_month = 1;
@@ -365,9 +365,9 @@ angular.module('lenestApp')
 
 		function weekTDGen(week) {
 			if (week==1)
-				return "<td rowspan=20 style='vertical-align:middle; text-align:center'>I</td>";
+				return "<td rowspan=20 style='vertical-align:middle; text-align:center'>Early Pregnancy Care</td>";
 			if (week==21)
-				return "<td rowspan=22 style='vertical-align:middle; text-align:center'>II</td>";
+				return "<td rowspan=22 style='vertical-align:middle; text-align:center'>Late Pregnancy Care</td>";
 			// if (week==28)
 			// 	return "<td rowspan=15 style='vertical-align:middle; text-align:center'>III</td>";
 			return "";
