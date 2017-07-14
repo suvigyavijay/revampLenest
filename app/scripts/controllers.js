@@ -218,7 +218,7 @@ angular.module('lenestApp')
 		});
 
 		$('#eddReset').click(function() {
-			$('#eddTable').html("<tr> <th>Week</th> <th>Date </th> <th>Trimester</th> <th>Important Milestones</th> </tr>");
+			$('#eddTable').html("<tr> <th>Week</th> <th>Date </th> <th>Pregnancy Care</th> <th>Important Milestones</th> </tr>");
 			$('#eddButton').removeAttr("disabled");
 			$scope.functionRun = false;
 			$rootScope.eddOutput = [];
@@ -226,7 +226,7 @@ angular.module('lenestApp')
 
 		$scope.eddPrint = function () {
 			if ($scope.printFired==0) {
-				var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row' style='font-size: 1.2em;'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='custom-table table table-bordered table-striped'> <tr> <th style='width:10%'>Month</th> <th style='width:10%''>Week</th> <th style='width:20%'>Date </th> <th  style='width:5%'>Trimester</th> <th style='width:50%'>Important Milestones</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
+				var printContents = "<style>td {padding:6px!important}</style><div class='container'><h2>"+ $('#pName').val() +"</h2> <div class='row' style='font-size: 1.2em;'> <div class='col-md-6'> EDD: &nbsp; "+ new Date($('#duedate').val()).toDateString().substring(4) +"</div> <div class='col-md-6'> LMP: &nbsp; "+ $('#lmp').val() +"</div> </div> <table class='custom-table table table-bordered table-striped'> <tr> <th style='width:10%'>Month</th> <th style='width:10%''>Week</th> <th style='width:20%'>Date </th> <th  style='width:5%'>Pregnancy Care</th> <th style='width:50%'>Important Milestones</th> </tr> "+ genPrintTable($rootScope.eddOutput) +"</table></div>";
 				printDiv(printContents);
 			}
 		};
@@ -334,12 +334,12 @@ angular.module('lenestApp')
 		}
 
 		function getTrimester(week) {
-		    if (week >= 1 && week <= 13)
-		        return "I";
-		    if (week >= 14 && week <= 27)
-		        return "II";
-		    if (week >= 28)
-		        return "III";
+		    if (week >= 1 && week <= 20)
+		        return "Early Pregnancy Care";
+		    if (week >= 21 && week <= 42)
+		        return "Late Pregnancy Care";
+		    // if (week >= 28)
+		        // return "III";
 
 		}
 
@@ -365,11 +365,11 @@ angular.module('lenestApp')
 
 		function weekTDGen(week) {
 			if (week==1)
-				return "<td rowspan=13 style='vertical-align:middle; text-align:center'>I</td>";
-			if (week==14)
-				return "<td rowspan=14 style='vertical-align:middle; text-align:center'>II</td>";
-			if (week==28)
-				return "<td rowspan=15 style='vertical-align:middle; text-align:center'>III</td>";
+				return "<td rowspan=20 style='vertical-align:middle; text-align:center'>I</td>";
+			if (week==21)
+				return "<td rowspan=22 style='vertical-align:middle; text-align:center'>II</td>";
+			// if (week==28)
+			// 	return "<td rowspan=15 style='vertical-align:middle; text-align:center'>III</td>";
 			return "";
 		}
 
